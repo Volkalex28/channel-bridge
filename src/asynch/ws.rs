@@ -264,7 +264,7 @@ pub mod embedded_svc_impl {
             let frame_data = postcard::to_slice(data, self.buf)?;
             #[cfg(feature = "prost")]
             let frame_data = {
-                data.encode(self.buf).map_err(WsError::from)?;
+                data.encode(&mut self.buf).map_err(WsError::from)?;
                 &self.buf[..data.encoded_len()]
             };
 
