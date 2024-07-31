@@ -1,6 +1,6 @@
 [package]
 name = "channel-bridge"
-version = "0.8.0"
+version = "0.8.1"
 edition = "2021"
 categories = ["embedded", "network"]
 keywords = ["embedded", "network"]
@@ -28,7 +28,7 @@ prost = { version = "0.11", optional = true }
 postcard = { version = "1.0.2", default-features = false, optional = true }
 gloo-net = { version = "0.4", default-features = false, features = ["websocket"], optional = true }
 futures = { version = "0.3", default-features = false, features = ["alloc"], optional = true }
-embassy-sync = "0.5"
+embassy-sync = "0.6"
 embassy-futures = { version = "0.1", optional = true }
 embedded-io = { version = "0.6", default-features = false, optional = true }
 embedded-io-async = { version = "0.6", default-features = false, optional = true }

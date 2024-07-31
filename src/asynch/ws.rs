@@ -264,7 +264,7 @@ pub mod embedded_svc_impl {
             let frame_data = postcard::to_slice(data, self.buf)?;
             #[cfg(feature = "prost")]
             let frame_data = {
-                data.encode(&mut self.buf).map_err(WsError::from)?;
+                data.encode(&mut &mut *self.buf)?;
                 &self.buf[..data.encoded_len()]
             };
 
@@ -330,9 +330,9 @@ pub mod embedded_svc_impl {
                 FrameType::Text(_) | FrameType::Continue(_) => Err(WsError::UnknownFrameError),
                 FrameType::Binary(_) => Ok(Some(
                     #[cfg(not(feature = "prost"))]
-                    postcard::from_bytes(frame_buf).map_err(WsError::PostcardError)?,
+                    postcard::from_bytes(frame_buf)?,
                     #[cfg(feature = "prost")]
-                    prost::Message::decode(frame_buf).map_err(WsError::from)?,
+                    prost::Message::decode(frame_buf)?,
                 )),
                 FrameType::Close | FrameType::SocketClose => Ok(None),
                 _ => unreachable!(),
